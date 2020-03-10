@@ -7,8 +7,8 @@ set :repo_url, "git@github.com:CPNV-ES/picture-galerie7.git"
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-# Default deploy_to directory is /var/www/picture-galerie7
-# set :deploy_to, "/var/www/picture-galerie7"
+#Default deploy_to directory is /var/www/picture-galerie7
+#set :deploy_to, "/home/cld2_7/cld2-7.mycpnv.ch"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
