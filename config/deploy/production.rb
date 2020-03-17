@@ -1,6 +1,9 @@
 
 #Default deploy_to directory is /var/www/picture-galerie7
-set :deploy_to, "/home/cld2_7/cld2-7.mycpnv.ch"
+set :deploy_to, "/home/cld2_10/cld2-10.mycpnv.ch"
+
+
+
 
 # server-based syntax
 # ======================
@@ -49,11 +52,30 @@ set :deploy_to, "/home/cld2_7/cld2-7.mycpnv.ch"
 
 # The server-based syntax can be used to override options:
 # ------------------------------------
-server "cld2-7.mycpnv.ch", user: "cld2_7"
+
+server "cld2-10.mycpnv.ch", user: "cld2_10"
 
 set :ssh_options, {
-    keys: %w(config/swisscenter_ssh_key),
+    keys: %w(config/swisscenter_cld2_10_rsa),
     forward_agent: false,
     auth_methods: %w(publickey)
 }
 
+SSHKit.config.command_map[:composer] = "php -d allow_url_fopen=true #{shared_path.join('composer')}"
+
+
+set :laravel_set_acl_paths, false
+set :laravel_upload_dotenv_file_on_deploy, false
+set :keep_releases, 2
+
+Rake::Task['laravel:optimize'].clear_actions rescue nil
+
+#on veut faire la task copy_dotenv après composer run! 
+after 'composer:run', 'copy_dotenv'
+task :copy_dotenv do
+  on roles(:all) do
+    execute :cp, "#{shared_path}/.env #{release_path}/.env"
+  end
+end
+# pour lancer le migrate
+after 'composer:run', 'laravel:migrate'

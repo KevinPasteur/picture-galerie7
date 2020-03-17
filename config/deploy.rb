@@ -2,7 +2,7 @@
 lock "~> 3.12.0"
 
 set :application, "picture-galerie7"
-set :repo_url, "git@github.com:CPNV-ES/picture-galerie7.git"
+set :repo_url, "git://github.com/KevinPasteur/picture-galerie7.git"
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
